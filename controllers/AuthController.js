@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from '../models/User';
+import User from '../models/User.js';
 
 export const register = async (req, res) => {
   try {
@@ -34,8 +34,3 @@ export const login = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 }
-
-module.exports = {
-  register,
-  login
-};

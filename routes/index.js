@@ -1,17 +1,17 @@
 import e from "express";
-import { login, register } from "../controllers/AuthController";
-import { createProduct, deleteProduct, getProductById, getProducts, updateProduct } from "../controllers/ProductController";
-import { getCategories } from "../controllers/CategoryController";
-import { createOrder, getOrderById, getUserOrders, updateOrderStatus } from "../controllers/OrderController";
-import { enrollInCourse, getCourseById, getCourses } from "../controllers/CourseController";
-import { getUserProgress, updateProgress } from "../controllers/ProgressController";
-import { downloadResource, getResources, uploadResource } from "../controllers/ResourceController";
-import { addComment, createPost, getPostById, getPosts } from "../controllers/PostController";
-import { createEvent, getEvents, updateEvent } from "../controllers/EventController";
-import { getNotifications, markNotificationAsRead } from "../controllers/NotificationController";
-import { uploadFile } from "../controllers/FileController";
-import { getSalesAnalytics, getTrainingAnalytics } from "../controllers/AnalyticsController";
-import protect from "../utility/protect";
+import { login, register } from "../controllers/AuthController.js";
+import { createProduct, deleteProduct, getProductById, getProducts, updateProduct } from "../controllers/ProductController.js";
+import { getCategories } from "../controllers/CategoryController.js";
+import { createOrder, getOrderById, getUserOrders, updateOrderStatus } from "../controllers/OrderController.js";
+import { enrollInCourse, getCourseById, getCourses } from "../controllers/CourseController.js";
+import { getUserProgress, updateProgress } from "../controllers/ProgressController.js";
+import { downloadResource, getResources, uploadResource } from "../controllers/ResourceController.js";
+import { addComment, createPost, getPostById, getPosts } from "../controllers/PostController.js";
+import { createEvent, getEvents, updateEvent } from "../controllers/EventController.js";
+import { getNotifications, markNotificationAsRead } from "../controllers/NotificationController.js";
+import { uploadFile } from "../controllers/FileController.js";
+import { getSalesAnalytics, getTrainingAnalytics } from "../controllers/AnalyticsController.js";
+import protect from "../utility/protect.js";
 
 const router = e.Router();
 
@@ -60,20 +60,20 @@ router.post('/community/posts', protect, createPost);
 router.post('/community/posts/:id/comments', protect, addComment);
 
 // Events Routes
-router.get('/api/events', getEvents);
-router.post('/api/events', protect, createEvent);
-router.patch('/api/events/:id', protect, updateEvent);
+router.get('/events', getEvents);
+router.post('/events', protect, createEvent);
+router.patch('/events/:id', protect, updateEvent);
 
 // Notifications Routes
-router.get('/api/notifications', protect, getNotifications);
-router.patch('/api/notifications/:id', protect, markNotificationAsRead);
+router.get('/notifications', protect, getNotifications);
+router.patch('/notifications/:id', protect, markNotificationAsRead);
 
 // Files Upload Routes
-router.post('/api/upload', uploadFile);
+router.post('/upload', uploadFile);
 
 // Analytics Routes
-router.get('/api/analytics/sales', protect, getSalesAnalytics);
-router.get('/api/analytics/training', protect, getTrainingAnalytics);
+router.get('/analytics/sales', protect, getSalesAnalytics);
+router.get('/analytics/training', protect, getTrainingAnalytics);
 
 
 export default router; 
