@@ -26,6 +26,9 @@ export const getUserOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
+    if(order.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
     if (!order) return res.status(404).json({ error: 'Order not found' });
     res.status(200).json(order);
   } catch (error) {
@@ -37,6 +40,9 @@ export const getOrderById = async (req, res) => {
 export const updateOrderStatus = async (req, res) => {
   try {
     const order = await Order.findByIdAndUpdate(req.params.id, { status: req.body.status }, { new: true });
+    if(order.user._id.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
     if (!order) return res.status(404).json({ error: 'Order not found' });
     res.status(200).json({ message: 'Order status updated successfully', order });
   } catch (error) {
