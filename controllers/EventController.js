@@ -1,4 +1,3 @@
-// controllers/eventController.js
 import Event from '../models/Event.js';
 
 // Get Events

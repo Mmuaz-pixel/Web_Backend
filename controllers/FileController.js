@@ -1,4 +1,3 @@
-// controllers/fileController.js
 export const uploadFile = async (req, res) => {
   try {
     const file = req.file;

@@ -1,4 +1,3 @@
-// controllers/postController.js
 import Post from '../models/Post.js';
 
 // Get Posts
