@@ -4,6 +4,7 @@ import connectDB from './utility/connectDB.js';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -18,11 +19,15 @@ const PORT = process.env.PORT || 5000;
 
 export default function (app) {
 
-  app.use(cors());
+  app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+  }));
   app.use(express.json());
   app.use(helmet());
   app.use(limiter); 
   app.use(morgan('combined'));
+  app.use(cookieParser());
   connectDB();
 
   app.listen(PORT, () => {

@@ -1,6 +1,6 @@
 import e from "express";
 import { login, register } from "../controllers/AuthController.js";
-import { createProduct, deleteProduct, getProductById, getProducts, updateProduct } from "../controllers/ProductController.js";
+import { createProduct, deleteProduct, getProductById, getProducts, getMyProducts, updateProduct } from "../controllers/ProductController.js";
 import { getCategories } from "../controllers/CategoryController.js";
 import { createOrder, getOrderById, getUserOrders, updateOrderStatus } from "../controllers/OrderController.js";
 import { enrollInCourse, getCourseById, getCourses } from "../controllers/CourseController.js";
@@ -12,6 +12,7 @@ import { getNotifications, markNotificationAsRead } from "../controllers/Notific
 import { uploadFile } from "../controllers/FileController.js";
 import { getSalesAnalytics, getTrainingAnalytics } from "../controllers/AnalyticsController.js";
 import protect from "../utility/protect.js";
+import cacheMiddleware from "../utility/cacheMiddleware.js";
 
 const router = e.Router();
 
@@ -22,6 +23,7 @@ router.post('/users/register', register);
 // Products Routes
 router.post('/products', protect, createProduct);
 router.get('/products', protect, getProducts);
+router.get('/my-products', protect, getMyProducts);
 router.get('/products/:id', protect, getProductById);
 router.patch('/products/:id', protect, updateProduct);
 router.delete('/products/:id', protect, deleteProduct);

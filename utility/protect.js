@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
-export default function () {
-  const token = req.cookie['token'];
+export default function (req, res, next) {
+  const token = req.cookies['token'];
 
   if (!token) {
     return res.status(401).json({ error: 'Access denied' });
@@ -13,6 +13,7 @@ export default function () {
     next();
   }
   catch (error) {
+    console.log(error)
     res.status(400).json({ error: 'Invalid token' });
   }
 }
