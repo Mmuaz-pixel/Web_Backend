@@ -12,7 +12,7 @@ export const getCourses = async (req, res) => {
     if (search) filters.title = new RegExp(search, 'i');
 
     const courses = await Course.find(filters).sort(sort || 'createdAt');
-    res.status(200).json(courses);
+    res.status(200).json({courses});
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }

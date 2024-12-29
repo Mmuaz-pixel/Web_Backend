@@ -4,7 +4,8 @@ import Progress from '../models/Progress.js';
 export const getUserProgress = async (req, res) => {
   try {
     const progress = await Progress.find({ user: req.user._id }).populate('course');
-    res.status(200).json(progress);
+    const enrolledCourses = progress.map(p => p.course);
+    res.status(200).json({ progress, enrolledCourses });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
