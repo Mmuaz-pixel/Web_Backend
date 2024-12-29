@@ -12,7 +12,7 @@ export const register = async (req, res) => {
     res.cookie('token', token, { httpOnly: true });
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error', success: false });
   }
 }
 
@@ -29,8 +29,9 @@ export const login = async (req, res) => {
     }
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.cookie('token', token, { httpOnly: true });
-    res.status(200).json({ token });
+    res.status(200).json({ accessToken: token, success: true, user: user });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    console.log(error); 
+    res.status(500).json({ error: 'Internal server error', success: false });
   }
 }

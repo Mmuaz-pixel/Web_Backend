@@ -16,8 +16,8 @@ import protect from "../utility/protect.js";
 const router = e.Router();
 
 // Auth Routes 
-router.post('/auth/login', login);
-router.post('/auth/register', register);
+router.post('/users/login', login);
+router.post('/users/register', register);
 
 // Products Routes
 router.post('/products', protect, createProduct);
