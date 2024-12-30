@@ -2,7 +2,7 @@ import e from "express";
 import { login, register } from "../controllers/AuthController.js";
 import { createProduct, deleteProduct, getProductById, getProducts, getMyProducts, updateProduct } from "../controllers/ProductController.js";
 import { getCategories } from "../controllers/CategoryController.js";
-import { createOrder, getOrderById, getUserOrders, updateOrderStatus } from "../controllers/OrderController.js";
+import { createOrder, getOrderById, getSellerOrders, getUserOrders, updateOrderStatus } from "../controllers/OrderController.js";
 import { enrollInCourse, getCourseById, getCourses } from "../controllers/CourseController.js";
 import { getUserProgress, updateProgress } from "../controllers/ProgressController.js";
 import { downloadResource, getResources, uploadResource } from "../controllers/ResourceController.js";
@@ -33,7 +33,8 @@ router.get('/categories', getCategories);
 
 // Order Routes
 router.post('/orders', protect, createOrder);
-router.get('/orders', protect, getUserOrders);
+router.get('/user-orders', protect, getUserOrders);
+router.get('/seller-orders', protect, getSellerOrders);
 router.get('/order/:id', protect, getOrderById);
 router.patch('/orders/:id/status', protect, updateOrderStatus);
 
