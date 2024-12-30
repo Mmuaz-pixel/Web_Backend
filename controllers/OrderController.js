@@ -26,14 +26,32 @@ export const getUserOrders = async (req, res) => {
 // Get Seller Orders
 export const getSellerOrders = async (req, res) => {
   try {
-    const sellerId = req.user._id; // Assuming `req.user._id` contains the seller's ID
-
+    const sellerId = req.user.id; // Assuming `req.user._id` contains the seller's ID
+    console.log(sellerId)
+    // Fetch orders where the seller has products
     const orders = await Order.find({ 'products.seller': sellerId })
-      .populate('products.product') 
-      .populate('buyer') 
+      .populate('products.productId') // Populate product details
+      .populate('buyer') // Populate buyer details
       .exec();
+    // Filter products for the specific seller and calculate total amount
+    const filteredOrders = orders.map(order => {
+      const sellerProducts = order.products.filter(
+        product => product.seller.toString() === sellerId.toString()
+      );
 
-    res.status(200).json(orders);
+      const totalAmount = sellerProducts.reduce(
+        (sum, product) => sum + product.price * product.quantity,
+        0
+      );
+
+      return {
+        ...order.toObject(),
+        products: sellerProducts, // Filtered products for the seller
+        totalAmount, // Total amount for the seller's products
+      };
+    });
+    console.log(filteredOrders) 
+    res.status(200).json(filteredOrders);
   } catch (error) {
     console.error('Error fetching seller orders:', error);
     res.status(500).json({ error: 'Internal server error' });
