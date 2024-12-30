@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web-backend:
+    image: web-backend:latest
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongo-data: {}
